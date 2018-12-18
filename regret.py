@@ -4,8 +4,15 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-def load_page():
-    url = os.getenv('pt_url')
+def form_url():
+    url = os.getenv('pt_base')
+    want = "&want=13"
+    have = "&have=4"
+    full_url = url + want + have
+    print(full_url)
+    return full_url
+
+def load_page(url):
     page = requests.get(url)
     return page.text
 
@@ -26,6 +33,7 @@ def calculate_ratio(data):
         ratio = buy_amount / pay_amount
         print("Buy %s regret for %s chaos at %s ratio" % (buy_amount, pay_amount, ratio))
         
-page = load_page()
+url = form_url()
+page = load_page(url)
 maths = parse_page(page)
 calculate_ratio(maths)
