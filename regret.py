@@ -37,7 +37,15 @@ def calculate_ratio(data):
     return np.mean(deal_list)
 
 url = form_url(2, 4)
+url2 = form_url(4,2)
+
 page = load_page(url)
+page2 = load_page(url2)
+
 maths = parse_page(page)
+maths2 = parse_page(page2)
+
 buy = calculate_ratio(maths)
-print(buy)
+sell = calculate_ratio(maths2)
+print("Buy value for fusing orbs: %s per chaos orb" % (buy))
+print("Buy value for chaos orbs: %s per fusing orb" % (sell))
