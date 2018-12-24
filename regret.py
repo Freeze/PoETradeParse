@@ -3,13 +3,13 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+import numpy as np
 
 def form_url(want, have):
     url = os.getenv('pt_base')
     want = "&want=%s" % (want)
     have = "&have=%s" % (have)
     full_url = url + want + have
-    print(full_url)
     return full_url
 
 def load_page(url):
@@ -26,14 +26,18 @@ def parse_page(page):
     return deals
 
 def calculate_ratio(data):
+    deal_list = []
     for deal in data:
         amounts = deal.split("⇐")
         buy_amount = int(amounts[0])
         pay_amount = int(amounts[1])
         ratio = buy_amount / pay_amount
-        print("Buy %s fuse for %s chaos at %s ratio" % (buy_amount, pay_amount, ratio))
-        
-url = form_url("4", "6")
+        deal_list.append(ratio)
+        #print("Buy %s fuse for %s chaos at %s ratio" % (buy_amount, pay_amount, ratio))
+    return np.mean(deal_list)
+
+url = form_url(2, 4)
 page = load_page(url)
 maths = parse_page(page)
-calculate_ratio(maths)
+buy = calculate_ratio(maths)
+print(buy)
