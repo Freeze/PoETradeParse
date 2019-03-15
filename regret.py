@@ -33,7 +33,7 @@ def calculate_ratio(data):
         pay_amount = int(amounts[1])
         ratio = buy_amount / pay_amount
         deal_list.append(ratio)
-        #print("Buy %s fuse for %s chaos at %s ratio" % (buy_amount, pay_amount, ratio))
+        print("Buy %s fuse for %s chaos at %s ratio" % (buy_amount, pay_amount, ratio))
     return np.mean(deal_list)
 
 url = form_url(2, 4)
